@@ -1,294 +1,166 @@
-/* General styles */
-body {
-    font-family: 'Roboto', sans-serif;
+/* General Styling */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+/* Body Styling */
+body {
+    background-color: #f4f4f9;
     color: #333;
-    transition: background-color 0.3s, color 0.3s;
+    line-height: 1.6;
+    margin: 0;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-h1, h2, h3 {
-    color: #333;
-}
-
-header, footer {
-    background-color: #f8f8f8;
-    padding: 20px;
+/* Splash Screen */
+.splash-screen {
+    background-color: #222;
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    animation: fadeOut 2s forwards;
 }
 
-footer {
-    font-size: 0.8rem;
-    color: #777;
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+/* Navigation Styling */
+nav {
+    background-color: #333;
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 nav ul {
     list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
     justify-content: center;
 }
 
 nav ul li {
-    margin: 0 15px;
+    margin: 0 20px;
 }
 
 nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
     font-weight: bold;
-    color: #333;
-    font-size: 1rem;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-    color: #ff5733;
+    color: #f4b400;
 }
 
-.mode-toggle button {
-    background-color: #ff5733;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: background-color 0.3s;
-}
-
-.mode-toggle button:hover {
-    background-color: #c0392b;
-}
-
-/* Splash Screen */
-.splash-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: rgba(255, 255, 255, 0.9);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    opacity: 1;
-    transition: opacity 0.5s;
-}
-
-.splash-screen h1 {
-    font-size: 2.5rem;
-    color: #333;
-}
-
-/* Main content */
-#main-content {
-    padding: 20px;
-}
-
-.home-section {
+/* Section Styling */
+section {
+    padding: 40px;
+    margin: 20px 0;
     text-align: center;
-    padding: 50px 0;
-    background-color: #f4f4f4;
 }
 
-.home-section h1 {
-    font-size: 2.5rem;
+/* Recipes Section */
+#recipes {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.home-section p {
-    font-size: 1.2rem;
+#recipe-container {
+    margin-top: 20px;
+    display: block;
+    text-align: center;
 }
 
-.recipe-card {
-    display: inline-block;
+#recipe-container img {
     width: 300px;
-    margin: 20px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.recipe-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.recipe-card img {
-    width: 100%;
     height: 200px;
     object-fit: cover;
+    border-radius: 8px;
+    margin-top: 10px;
 }
 
-.recipe-card h3 {
-    font-size: 1.4rem;
-    padding: 15px;
-    text-align: center;
-    background-color: #ff5733;
-    color: white;
+/* Weather Section */
+.weather-section {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
 }
 
-.recipe-card p {
-    padding: 0 15px;
-    text-align: center;
-    color: #777;
+.weather-section p {
+    font-size: 18px;
 }
 
-button {
-    display: block;
+/* Map Section */
+#leaflet-map {
     width: 100%;
-    padding: 10px;
-    background-color: #ff5733;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    height: 400px;
+    border-radius: 8px;
 }
 
-button:hover {
-    background-color: #c0392b;
-}
-
-/* Modal styles */
-.recipe-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-}
-
-.recipe-modal .recipe-content {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    width: 80%;
+/* Contact Section */
+#contact {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     max-width: 600px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.recipe-modal h2 {
-    font-size: 2rem;
-    color: #333;
-}
-
-.recipe-modal p {
-    font-size: 1rem;
-    color: #777;
-}
-
-.recipe-modal ul, .recipe-modal ol {
-    padding-left: 20px;
-}
-
-.close-modal {
-    background-color: transparent;
-    border: none;
-    font-size: 1.5rem;
-    color: #333;
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
-/* Meal Planner */
-.meal-planner-section {
-    text-align: center;
-    padding: 50px 0;
-}
-
-.meal-planner-section button {
-    background-color: #ff5733;
-    padding: 15px 30px;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    border-radius: 5px;
-    border: none;
-    transition: background-color 0.3s;
-}
-
-.meal-planner-section button:hover {
-    background-color: #c0392b;
-}
-
-/* Contact Form */
-.contact-section form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 500px;
     margin: 0 auto;
 }
 
-.contact-section form input, .contact-section form textarea {
-    width: 100%;
+#contact form {
+    display: flex;
+    flex-direction: column;
+}
+
+#contact label {
+    margin: 10px 0 5px;
+    font-size: 16px;
+}
+
+#contact input, #contact textarea {
     padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
+    margin-bottom: 20px;
     border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
-.contact-section form button {
-    width: 100%;
+#contact button {
     padding: 10px;
-    background-color: #ff5733;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.2rem;
-}
-
-.contact-section form button:hover {
-    background-color: #c0392b;
-}
-
-/* Dark Mode */
-body.dark-mode {
     background-color: #333;
-    color: #f4f4f4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-body.dark-mode header, body.dark-mode footer {
-    background-color: #222;
+#contact button:hover {
+    background-color: #f4b400;
 }
 
-body.dark-mode nav ul li a {
-    color: #f4f4f4;
+/* Loading States */
+#recipe-container, .weather-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
 }
 
-body.dark-mode .recipe-card h3 {
-    background-color: #c0392b;
-}
-
-/* Responsive styles */
+/* Responsive Design */
 @media (max-width: 768px) {
-    .recipe-card {
-        width: 100%;
-        margin: 10px 0;
-    }
-
-    .mode-toggle button {
-        width: 100%;
-    }
-
     nav ul {
         flex-direction: column;
     }
@@ -297,11 +169,12 @@ body.dark-mode .recipe-card h3 {
         margin: 10px 0;
     }
 
-    .home-section {
-        padding: 30px 0;
+    #contact {
+        width: 100%;
+        padding: 15px;
     }
 
-    .recipe-modal .recipe-content {
-        width: 90%;
+    #leaflet-map {
+        height: 300px;
     }
 }
