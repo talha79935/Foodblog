@@ -4,155 +4,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="TasteCraft - A hub for all things food, featuring recipes, cooking tips, and more!">
-    <meta name="keywords" content="recipes, food, cooking, meals, TasteCraft, meal plans, food blog">
-    <meta name="author" content="TasteCraft Team">
-    <link rel="icon" href="https://example.com/favicon.ico" type="image/x-icon">
-    <title>TasteCraft - The Ultimate Food Blog</title>
-    
-    <!-- Link to external CSS file -->
+    <title>Taste Craft - Food Blog</title>
+
+    <!-- Leaflet.js CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- External CSS File Link -->
     <link rel="stylesheet" href="style.css">
-    
-    <!-- External libraries (e.g., Google Fonts, Bootstrap, jQuery) -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Service Worker for offline support -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js').then(reg => {
-                    console.log('Service Worker registered', reg);
-                }).catch(err => {
-                    console.log('Service Worker registration failed', err);
-                });
-            });
-        }
-    </script>
-
-    <!-- Smooth Scroll JavaScript -->
-    <script>
-        $(document).ready(function () {
-            $("a").on('click', function (event) {
-                if (this.hash !== "") {
-                    event.preventDefault();
-                    var hash = this.hash;
-                    $('html, body').animate({
-                        scrollTop: $(hash).offset().top
-                    }, 800);
-                }
-            });
-        });
-    </script>
+    <!-- External JS File Link (If any) -->
+    <script src="script.js" defer></script>
 </head>
 
 <body>
-
-    <!-- Splash Screen -->
-    <div id="splash-screen" class="splash-screen">
-        <h1>Welcome to TasteCraft!</h1>
-        <p>Loading...</p>
+    <!-- Splash Screen for Initial Load -->
+    <div class="splash-screen">
+        <h1>Taste Craft</h1>
     </div>
 
-    <!-- Main Content -->
-    <main id="main-content">
+    <!-- Navigation Menu -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#recipes">Recipes</a></li>
+            <li><a href="#weather">Weather</a></li>
+            <li><a href="#map">Map</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-        <!-- Header with Navigation -->
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#recipes">Recipes</a></li>
-                    <li><a href="#meal-planner">Meal Planner</a></li>
-                    <li><a href="#shop">Shop Ingredients</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <div class="mode-toggle">
-                    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
-                </div>
-            </nav>
-        </header>
+    <!-- Home Section -->
+    <section id="home">
+        <h2>Welcome to Taste Craft</h2>
+        <p>Explore the world of food, recipes, and more!</p>
+    </section>
 
-        <!-- Home Section -->
-        <section id="home" class="home-section">
-            <h1>Welcome to TasteCraft</h1>
-            <p>Your ultimate hub for all things food! Explore recipes, meal plans, and cooking tips.</p>
-        </section>
+    <!-- Recipes Section -->
+    <section id="recipes">
+        <h2>Delicious Recipes</h2>
+        <p>Explore recipes from around the world.</p>
+        <button onclick="fetchRecipe()">Fetch Random Recipe</button>
+        <div id="recipe-container"></div>
+    </section>
 
-        <!-- Featured Recipes Section -->
-        <section id="recipes" class="recipes-section">
-            <h2>Featured Recipes</h2>
-            <div class="recipe-card" data-recipe-id="1">
-                <img src="https://images.unsplash.com/photo-1603762630617-cd63a871b021?crop=entropy&cs=tinysrgb&fit=max&ixid=MXwyMDg4N3wwfDF8c2VhY2h8MjN8fGZvb3QlMjBsaWZlfGVufDB8fHx8fDE2Nzg5NjEzNzM&ixlib=rb-1.2.1&q=80&w=1080" alt="Spaghetti Carbonara">
-                <h3>Spaghetti Carbonara</h3>
-                <p>Classic Italian dish. Easy and delicious!</p>
-                <button onclick="showRecipeDetails(1)">View Recipe</button>
-            </div>
-            <div class="recipe-card" data-recipe-id="2">
-                <img src="https://images.unsplash.com/photo-1589176815691-92ed01d9a3ea?crop=entropy&cs=tinysrgb&fit=max&ixid=MXwyMDg4N3wwfDF8c2VhY2h8MTB8fGZvb3QlMjBzdXJlZGVyaHxlbnwwfHx8fDE2Nzg5NjEzNzM&ixlib=rb-1.2.1&q=80&w=1080" alt="Vegetable Stir-fry">
-                <h3>Vegetable Stir-fry</h3>
-                <p>Quick, healthy, and full of flavor!</p>
-                <button onclick="showRecipeDetails(2)">View Recipe</button>
-            </div>
-        </section>
+    <!-- Weather Section -->
+    <section id="weather" class="weather-section">
+        <h2>Weather</h2>
+        <p>Loading weather...</p>
+    </section>
 
-        <!-- Meal Planner Section -->
-        <section id="meal-planner" class="meal-planner-section">
-            <h2>Meal Planner</h2>
-            <button onclick="planMeals()">Plan Your Meals</button>
-        </section>
+    <!-- Map Section (Leaflet.js) -->
+    <section id="map" class="map-section">
+        <h2>Interactive Map</h2>
+        <div id="leaflet-map"></div>
+    </section>
 
-        <!-- Recipe Details Modal -->
-        <div id="recipe-modal" class="recipe-modal">
-            <div class="recipe-content">
-                <button class="close-modal" onclick="closeRecipeModal()">Close</button>
-                <h2 id="recipe-title"></h2>
-                <p id="recipe-description"></p>
-                <h3>Ingredients:</h3>
-                <ul id="recipe-ingredients"></ul>
-                <h3>Instructions:</h3>
-                <ol id="recipe-instructions"></ol>
-                <button onclick="addToShoppingList()">Add to Shopping List</button>
-            </div>
-        </div>
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form id="contact-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
 
-        <!-- About Section -->
-        <section id="about" class="about-section">
-            <h2>About TasteCraft</h2>
-            <p>TasteCraft is your ultimate online destination for delicious recipes, cooking tips, and meal plans.</p>
-        </section>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
 
-        <!-- Contact Section -->
-        <section id="contact" class="contact-section">
-            <h2>Contact Us</h2>
-            <form id="contact-form">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
-        </section>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
 
-        <!-- Footer Section -->
-        <footer>
-            <p>&copy; 2024 TasteCraft - All Rights Reserved</p>
-            <div class="social-media">
-                <a href="https://facebook.com/tastecraft" target="_blank">Facebook</a>
-                <a href="https://twitter.com/tastecraft" target="_blank">Twitter</a>
-                <a href="https://instagram.com/tastecraft" target="_blank">Instagram</a>
-            </div>
-        </footer>
+            <button type="submit">Send</button>
+        </form>
+    </section>
 
-    </main>
+    <!-- Leaflet.js JS for Map -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <!-- Scripts -->
-    <script src="script.js"></script>
+    <!-- Weather API -->
+    <script>
+        const weatherApiKey = 'b2f5a31713cd9cf1d6d79e14439fc163'; // Your OpenWeatherMap API key
+        const city = 'Karachi'; // Default city updated to Karachi
+
+        async function fetchWeather() {
+            const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city},pk&appid=${weatherApiKey}&units=metric`;
+            const response = await fetch(weatherUrl);
+            const data = await response.json();
+            displayWeather(data);
+        }
+
+        function displayWeather(data) {
+            const weatherSection = document.querySelector('.weather-section');
+            const weatherHtml = `
+                <p>Location: ${data.name}, ${data.sys.country}</p>
+                <p>Temperature: ${data.main.temp}°C</p>
+                <p>Weather: ${data.weather[0].description}</p>
+                <p>Humidity: ${data.main.humidity}%</p>
+                <p>Wind Speed: ${data.wind.speed} m/s</p>
+            `;
+            weatherSection.innerHTML = weatherHtml;
+        }
+
+        fetchWeather();
+    </script>
+
+    <!-- Recipe API -->
+    <script>
+        async function fetchRecipe() {
+            const recipeUrl = 'https://api.spoonacular.com/recipes/random?apiKey=08975685f2de46edba42550b2904f53e';
+            const response = await fetch(recipeUrl);
+            const data = await response.json();
+            displayRecipe(data);
+        }
+
+        function displayRecipe(data) {
+            const recipeContainer = document.getElementById('recipe-container');
+            const recipeHtml = `
+                <h3>${data.recipes[0].title}</h3>
+                <img src="${data.recipes[0].image}" alt="Recipe Image" />
+                <p>${data.recipes[0].summary}</p>
+            `;
+            recipeContainer.innerHTML = recipeHtml;
+        }
+    </script>
+
+    <!-- Leaflet Map Initialization -->
+    <script>
+        const map = L.map('leaflet-map').setView([24.8607, 67.0011], 13); // Default map location set to Karachi
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        const marker = L.marker([24.8607, 67.0011]).addTo(map); // Marker for Karachi
+        marker.bindPopup("<b>Welcome to Karachi!</b><br />This is a popup.").openPopup();
+    </script>
 
 </body>
 
